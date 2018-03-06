@@ -18,8 +18,6 @@ ENV SCALA_VERSIONS 2.11.8 2.11.11
 ENV SBT_VERSIONS 0.13.15 0.13.16
 ENV COURSIER_VERBOSITY -1
 
-WORKDIR /root
-
 RUN \
   mkdir -p /tmp/sbt &&\
   cd /tmp/sbt &&\
@@ -43,7 +41,6 @@ RUN \
   done &&\
   cd .\
   rm -rf /tmp/sbt
-
 
 WORKDIR /root
 
