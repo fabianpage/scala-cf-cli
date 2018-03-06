@@ -18,16 +18,19 @@ ENV SCALA_VERSIONS 2.11.8 2.11.11
 ENV SBT_VERSIONS 0.13.15 0.13.16
 ENV COURSIER_VERBOSITY -1
 
+WORKDIR /root
 
 RUN \
-  mkdir /tmp/sbt &&\
+  mkdir -p /tmp/sbt &&\
   cd /tmp/sbt &&\
   mkdir -p project project/project src/main/scala &&\
   touch src/main/scala/scratch.scala &&\
   for JAVA_VERSION in $JAVA_VERSIONS ; do\
   echo $JAVA_VERSION > .java-version ;\
+  head .java-version &&\
   for SBT_VERSION in $SBT_VERSIONS ; do\
     echo "sbt.version=$SBT_VERSION" > project/build.properties &&\
+    head project/build.properties &&\
     for SCALA_VERSION in $SCALA_VERSIONS ; do\
       echo "$JAVA_VERSION $SBT_VERSION $SCALA_VERSION" ;\
       rm project/project/plugins.sbt >/dev/null 2>&1 ;\
@@ -38,8 +41,9 @@ RUN \
     done ;\
   done ;\
   done &&\
+  cd .\
   rm -rf /tmp/sbt
 
-WORKDIR /root
 
+WORKDIR /root
 
