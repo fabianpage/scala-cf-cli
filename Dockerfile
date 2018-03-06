@@ -1,26 +1,6 @@
-## From fommil/docker-openjdk-sbt https://github.com/fommil/docker-openjdk-sbt/blob/master/Dockerfile
 
-##FROM base/archlinux
 FROM hseeberger/scala-sbt
 
-
-##RUN pacman -Sy --noconfirm jdk8-openjdk openjdk8-src sbt zip gnu-netcat sudo wget tmux jq 
-##RUN useradd -u 1001 -d /home/git -m git
-##RUN pacman -Sy --noconfirm git
-##RUN rm -rf /var/cache/pacman/pkg/ 
-
-##RUN useradd -u 1000 -d /home/makepkg -m makepkg
-
-##RUN sudo -l -U makepkg git clone https://aur.archlinux.org/cloudfoundry-cli 
-##RUN sudo -l -U makepkg cd cloudfoundry-cli 
-##RUN sudo -l -U makepkg makepkg -si 
-##RUN cd .. 
-##RUN rm -rf cloudfoundry-cli 
-
-##RUN git clone https://github.com/gcuisinier/jenv.git /root/.jenv 
-##RUN mkdir /root/.jenv/versions 
-##RUN jenv add /usr/lib/jvm/java-8-openjdk 
-##RUN jenv global 1.8
 
 ## add cloudfoundry cli
 RUN apt-get update -yq
@@ -31,6 +11,7 @@ RUN apt-get update -yq
 RUN apt-get install ca-certificates cf-cli zip netcat sudo build-essential tmux wget curl jq -yq
 
 ## Add Scala Versions
+## From fommil/docker-openjdk-sbt https://github.com/fommil/docker-openjdk-sbt/blob/master/Dockerfile
 ENV PATH /root/.jenv/shims:/root/.jenv/bin:$PATH
 ENV JAVA_VERSIONS 1.8
 ENV SCALA_VERSIONS 2.11.8 2.11.11 
