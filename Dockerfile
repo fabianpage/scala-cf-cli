@@ -1,6 +1,5 @@
 
-FROM hseeberger/scala-sbt
-
+FROM hseeberger/scala-sbt:11.0.6_1.3.9_2.13.1
 
 ## add cloudfoundry cli
 RUN apt-get update -yq
@@ -14,8 +13,8 @@ RUN apt-get install ca-certificates cf-cli zip netcat sudo build-essential tmux 
 ## From fommil/docker-openjdk-sbt https://github.com/fommil/docker-openjdk-sbt/blob/master/Dockerfile
 ENV PATH /root/.jenv/shims:/root/.jenv/bin:$PATH
 ENV JAVA_VERSIONS 1.8
-ENV SCALA_VERSIONS 2.11.8 2.11.11 
-ENV SBT_VERSIONS 0.13.15 0.13.16
+ENV SCALA_VERSIONS 2.13.1
+ENV SBT_VERSIONS 1.3.9
 ENV COURSIER_VERBOSITY -1
 
 RUN \
