@@ -1,5 +1,5 @@
 
-FROM hseeberger/scala-sbt:11.0.6_1.3.9_2.13.1
+FROM hseeberger/scala-sbt:11.0.7_1.3.12_2.13.2
 
 ## add cloudfoundry cli
 RUN apt-get update -yq
@@ -13,7 +13,7 @@ RUN apt-get install ca-certificates cf-cli zip netcat sudo build-essential tmux 
 ## From fommil/docker-openjdk-sbt https://github.com/fommil/docker-openjdk-sbt/blob/master/Dockerfile
 ENV PATH /root/.jenv/shims:/root/.jenv/bin:$PATH
 ENV JAVA_VERSIONS 1.8
-ENV SCALA_VERSIONS 2.13.1
+ENV SCALA_VERSIONS 2.13.2
 ENV SBT_VERSIONS 1.3.9
 ENV COURSIER_VERBOSITY -1
 
@@ -26,16 +26,16 @@ RUN \
   echo $JAVA_VERSION > .java-version ;\
   head .java-version &&\
   for SBT_VERSION in $SBT_VERSIONS ; do\
-    echo "sbt.version=$SBT_VERSION" > project/build.properties &&\
-    head project/build.properties &&\
-    for SCALA_VERSION in $SCALA_VERSIONS ; do\
-      echo "$JAVA_VERSION $SBT_VERSION $SCALA_VERSION" ;\
-      rm project/project/plugins.sbt >/dev/null 2>&1 ;\
-      sbt ++$SCALA_VERSION clean update compile >/dev/null 2>&1 ;\
-      echo 'addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0")' > project/project/plugins.sbt ;\
-      sbt ++$SCALA_VERSION clean update compile >/dev/null 2>&1 ;\
-      rm project/project/plugins.sbt >/dev/null 2>&1 ;\
-    done ;\
+  echo "sbt.version=$SBT_VERSION" > project/build.properties &&\
+  head project/build.properties &&\
+  for SCALA_VERSION in $SCALA_VERSIONS ; do\
+  echo "$JAVA_VERSION $SBT_VERSION $SCALA_VERSION" ;\
+  rm project/project/plugins.sbt >/dev/null 2>&1 ;\
+  sbt ++$SCALA_VERSION clean update compile >/dev/null 2>&1 ;\
+  echo 'addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0")' > project/project/plugins.sbt ;\
+  sbt ++$SCALA_VERSION clean update compile >/dev/null 2>&1 ;\
+  rm project/project/plugins.sbt >/dev/null 2>&1 ;\
+  done ;\
   done ;\
   done &&\
   cd .\
